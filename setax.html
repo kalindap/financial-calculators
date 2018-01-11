@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h3>Self-Employment Tax Calculator</h3>
+        <form>
+            <div>
+                Contribution Year
+                <select id="year">
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                </select>
+            </div>
+            <div>
+                Profit from Business (without commas or dollar signs)
+                <input type='text' id='profit'>
+            </div>
+            <div>
+                Other Earnings (e.g. from a day job)
+                <input type='text' id='other-earnings'>
+            </div>
+            <button type='button' id='calcButton'>Calculate</button>
+        </form>
+    </body>
+    <script>
+    var btn = document.getElementById('calcButton');
+
+    btn.onclick = function() {
+        var year = document.getElementById('year').value;
+        var profit = document.getElementById('profit').value;
+        var otherEarnings = document.getElementById('other-earnings').value;
+
+        var maxTaxableEarnings;
+        if (year === '2017') {
+            maxTaxableEarnings = 127200;
+        } else if (year === '2018') {
+            maxTaxableEarnings = 128700;
+        }
+
+        var selfEmploymentTax;
+        if (profit * .9235 < 400) {
+            selfEmploymentTax = 0;
+        } else if (profit * .9235 + otherEarnings <= maxTaxableEarnings) {
+            selfEmploymentTax = profit * .9235 * .153;
+        } else if ((profit * .9235 + otherEarnings > maxTaxableEarnings) && (otherEarnings < maxTaxableEarnings)) {
+            selfEmploymentTax = (profit * .9235 * .029) + ((maxTaxableEarnings - otherEarnings) * .124);
+        } else if (otherEarnings >= maxTaxableEarnings) {
+            selfEmploymentTax = profit * .9235 * .029;
+        }
+
+        selfEmploymentTax = Math.round(selfEmploymentTax * 100) / 100;
+
+        alert(selfEmploymentTax);
+    }
+    </script>
+</html>
