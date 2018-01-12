@@ -1,10 +1,14 @@
+var yearField = document.getElementById('year');
+var profitField = document.getElementById('profit');
+var otherEarningsField = document.getElementById('other-earnings');
 var btn = document.getElementById('calcButton');
+var selfEmploymentTax;
 
 function calculateSETax() {
     //get user inputs
-    var year = document.getElementById('year').value;
-    var profit = document.getElementById('profit').value;
-    var otherEarnings = document.getElementById('other-earnings').value;
+    var year = yearField.value;
+    var profit = profitField.value;
+    var otherEarnings = otherEarningsField.value;
 
     //determine maximum taxable earnings based on year
     var maxTaxableEarnings;
@@ -14,8 +18,7 @@ function calculateSETax() {
         maxTaxableEarnings = 128700;
     }
 
-    //perform self-employment tax calculation
-    var selfEmploymentTax;
+    //calculate self-employment tax
     if (profit * .9235 < 400) {
         selfEmploymentTax = 0;
     } else if (profit * .9235 + otherEarnings <= maxTaxableEarnings) {
@@ -25,14 +28,18 @@ function calculateSETax() {
     } else if (otherEarnings >= maxTaxableEarnings) {
         selfEmploymentTax = profit * .9235 * .029;
     }
+    return selfEmploymentTax;
+}
+
+function outputSETax() {
+    calculateSETax();
 
     //format self-employment tax with commas and two decimal places
     selfEmploymentTax = selfEmploymentTax.toLocaleString('en-US', { style: 'decimal', maximumFractionDigits : 2, minimumFractionDigits : 2 });
 
     //display self-employment tax
     var result = document.getElementById('result');
-    result.textContent = 'Your self-employment tax for ' + year + ' is $' + selfEmploymentTax + '.';
-
+    result.textContent = 'Your self-employment tax for ' + yearField.value + ' is $' + selfEmploymentTax + '.';
 }
 
-btn.onclick = calculateSETax;
+btn.onclick = outputSETax;
