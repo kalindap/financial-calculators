@@ -19,12 +19,17 @@ function calculateSEPIRA() {
         contributionLimit = maxContributionLimit;
     }
 
-    //format SEP IRA contribution limit with commas and two decimal places
-    contributionLimit = contributionLimit.toLocaleString('en-US', { style: 'decimal', maximumFractionDigits : 2, minimumFractionDigits : 2 });
-
-    //display SEP IRA contribution limit
     var result = document.getElementById('result');
-    result.textContent = 'Your SEP IRA contribution limit for ' + yearField.value + ' is $' + contributionLimit + '.';
+    //output a result only if there are no errors being displayed
+    if (profitError.innerHTML === '' && otherError.innerHTML === '') {
+        //format SEP IRA contribution limit with commas and two decimal places
+        contributionLimit = contributionLimit.toLocaleString('en-US', { style: 'decimal', maximumFractionDigits : 2, minimumFractionDigits : 2 });
+
+        //display SEP IRA contribution limit
+        result.innerHTML = 'Your SEP IRA contribution limit for ' + yearField.value + ' is $' + contributionLimit + '.';
+    } else {
+        result.innerHTML = '';
+    }
 }
 
 btn.onclick = calculateSEPIRA;

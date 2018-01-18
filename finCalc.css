@@ -1,0 +1,11 @@
+.error {
+    color: red;
+}
+
+input:focus:invalid {
+    box-shadow: 0 0 5px 1px red;
+}
+
+div {
+    line-height: 150%;
+}

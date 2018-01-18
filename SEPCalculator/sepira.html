@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel='stylesheet' type='text/css' href='../finCalc.css' />
     </head>
     <body>
         <h3>SEP IRA Contribution Limit Calculator</h3>
         <form>
             <div>
                 Contribution Year
-                <select id="year">
-                    <option value="2017">2017</option>
-                    <option value="2018">2018</option>
+                <select id='year'>
+                    <option value='2017'>2017</option>
+                    <option value='2018'>2018</option>
                 </select>
             </div>
             <div>
-                Profit from Business (without commas or dollar signs)
-                <input type='text' id='profit'>
+                Profit from Business (whole dollars, no commas or dollar signs)
+                <input type='text' pattern='^[0-9]+$' id='profit'>
+                <span class='error' id='profitError'></span>
             </div>
             <div>
-                Other Earnings (e.g. from a day job)
-                <input type='text' id='other-earnings'>
+                Other Earnings e.g. from a day job (whole dollars, no commas or dollar signs)
+                <input type='text' pattern='^[0-9]+$' id='other-earnings'>
+                <span class='error' id='otherError'></span>
             </div>
             <button type='button' id='calcButton'>Calculate</button>
         </form>
