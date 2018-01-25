@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel='stylesheet' type='text/css' href='../finCalc.css' />
+    </head>
+    <body>
+        <h3>SIMPLE IRA Contribution Limit Calculator</h3>
+        <form>
+            <div>
+                Contribution Year
+                <select id='year'>
+                    <option value='2017'>2017</option>
+                    <option value='2018'>2018</option>
+                </select>
+            </div>
+            <div>
+                Age (at the end of the year in question)
+                <select id='age'>
+                    <option value='younger'>Under 50</option>
+                    <option value='older'>50 or older</option>
+                </select>
+            </div>
+            <div>
+                Profit from Business (whole dollars, no commas or dollar signs)
+                <input type='text' pattern='^[0-9]+$' id='profit'>
+                <span class='error' id='profitError'></span>
+            </div>
+            <div>
+                Non-Catch-Up Contributions to Other 401k or 403b Plans (whole dollars, no commas or dollar signs)
+                <input type='text' pattern='^[0-9]+$' id='other-contributions'>
+                <span class='error' id='otherContributions'></span>
+            </div>
+            <div>
+                Catch-Up Contributions to Other 401k or 403b Plans (whole dollars, no commas or dollar signs)
+                <input type='text' pattern='^[0-9]+$' id='other-catchup'>
+                <span class='error' id='otherCatchup'></span>
+            </div>
+            <button type='button' id='calcButton'>Calculate</button>
+        </form>
+        <p id='result'></p>
+        <script src='simpleira.js'></script>
+    </body>
+</html>
