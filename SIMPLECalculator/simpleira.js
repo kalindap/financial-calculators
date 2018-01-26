@@ -5,7 +5,33 @@ var otherContributionsField = document.getElementById('other-contributions');
 var otherCatchupField = document.getElementById('other-catchup');
 var btn = document.getElementById('calcButton');
 var profitError = document.getElementById('profitError');
-var otherError = document.getElementById('otherError');
+var otherContributionsError = document.getElementById('otherContributionsError');
+var otherCatchupError = document.getElementById('otherCatchupError');
+
+//show error messages if profit, other contributions, or other catchup contributions inputs are not numbers
+profitField.oninput = function() {
+    if (profitField.validity.patternMismatch === true) {
+        profitError.innerHTML = ' Digits only please';
+    } else {
+        profitError.innerHTML = '';
+    }
+}
+
+otherContributionsField.oninput = function() {
+    if (otherContributionsField.validity.patternMismatch === true) {
+        otherContributionsError.innerHTML = ' Digits only please';
+    } else {
+        otherContributionsError.innerHTML = '';
+    }
+}
+
+otherCatchupField.oninput = function() {
+    if (otherCatchupField.validity.patternMismatch === true) {
+        otherCatchupError.innerHTML = ' Digits only please';
+    } else {
+        otherCatchupError.innerHTML = '';
+    }
+}
 
 function calculateSIMPLEIRA() {
     //get user inputs
@@ -75,11 +101,14 @@ function calculateSIMPLEIRA() {
     employeeLimit = employeeLimit.toLocaleString('en-US', { style: 'decimal', maximumFractionDigits : 2, minimumFractionDigits : 2 });
     totalLimit = totalLimit.toLocaleString('en-US', { style: 'decimal', maximumFractionDigits : 2, minimumFractionDigits : 2 });
 
-    //display contribution limits
+    //output a result only if there are no errors being displayed
     var result = document.getElementById('result');
-    result.innerHTML = 'Your total SIMPLE IRA contribution limit for ' + year + ' is $' + totalLimit +
-    ' (made up of an employee contribution of $' + employeeLimit + ' and an employer contribution of $' + employerLimit + ').';
-
+    if (profitError.innerHTML === '' && otherContributionsError.innerHTML === '' && otherCatchupError.innerHTML === '') {
+        result.innerHTML = 'Your total SIMPLE IRA contribution limit for ' + year + ' is $' + totalLimit +
+        ' (made up of an employee contribution of $' + employeeLimit + ' and an employer contribution of $' + employerLimit + ').';
+    } else {
+        result.innerHTML = '';
+    }
 }
 
 btn.onclick = calculateSIMPLEIRA;
