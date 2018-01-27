@@ -9,3 +9,7 @@ input:focus:invalid {
 div {
     line-height: 150%;
 }
+
+#catchupBlock {
+    display: none;
+}

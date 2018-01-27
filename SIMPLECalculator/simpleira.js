@@ -3,6 +3,7 @@ var ageField = document.getElementById('age');
 var profitField = document.getElementById('profit');
 var otherContributionsField = document.getElementById('other-contributions');
 var otherCatchupField = document.getElementById('other-catchup');
+var catchupBlock = document.getElementById('catchupBlock');
 var btn = document.getElementById('calcButton');
 var profitError = document.getElementById('profitError');
 var otherContributionsError = document.getElementById('otherContributionsError');
@@ -33,6 +34,15 @@ otherCatchupField.oninput = function() {
     }
 }
 
+//show catchup contribution block only if user is 50 or older
+ageField.onchange = function() {
+    if (ageField.value === 'older') {
+        catchupBlock.style.display = 'block';
+    } else {
+        catchupBlock.style.display = 'none';
+    }
+}
+
 function calculateSIMPLEIRA() {
     //get user inputs
     var year = yearField.value;
@@ -41,7 +51,7 @@ function calculateSIMPLEIRA() {
     var otherContributions = Number(otherContributionsField.value);
     var otherCatchup = Number(otherCatchupField.value);
 
-    //determine maximum contribution limit based on year and age
+    //determine maximum contribution limit and maximum catchup limit based on year and age
     var maxContributionLimit;
     var maxCatchup;
     if (year === '2017' && age === 'younger') {
@@ -64,6 +74,11 @@ function calculateSIMPLEIRA() {
     }
 
     if (otherCatchup === undefined) {
+        otherCatchup = 0;
+    }
+
+    //prevent an other catchup input from being used in the calculations if the user is under 50
+    if (age === 'younger') {
         otherCatchup = 0;
     }
 
